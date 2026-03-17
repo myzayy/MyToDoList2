@@ -2,8 +2,8 @@
     "name": "zaets/my-to-do-list2",
     "autoload": {
         "psr-4": {
-            "Zaets\\MyToDoList2\\": "app/",
-            "Zaets\\MyToDoList2\\Config\\": "Config/"
+            "App\\": "App/",
+            "Config\\": "Config/"
         }
     },
     "authors": [

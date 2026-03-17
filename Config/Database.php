@@ -1,6 +1,6 @@
 <?php
 
-namespace Zaets\MyToDoList2\Config;
+namespace Config;
 
 use PDO;
 use PDOException;

@@ -6,6 +6,6 @@ $vendorDir = dirname(__DIR__);
 $baseDir = dirname($vendorDir);
 
 return array(
-    'Zaets\\MyToDoList2\\Config\\' => array($baseDir . '/Config'),
-    'Zaets\\MyToDoList2\\' => array($baseDir . '/app'),
+    'Config\\' => array($baseDir . '/Config'),
+    'App\\' => array($baseDir . '/App'),
 );
