@@ -31,8 +31,10 @@ class TaskController
             header("Location: index.php"); // redirect back after adding
             exit();
         } else {
+            // save errors array in session
+            $_SESSION['errors'] = $validator->getErrors();
 
-            header("Location: index.php?error=invalid_data");
+            header("Location: index.php");
             exit();
         }
 

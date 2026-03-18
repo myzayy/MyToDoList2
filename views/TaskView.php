@@ -17,6 +17,17 @@
                 <div class="card shadow-sm">
                     <div class="card-body">
                         <h3 class="card-title text-center mb-4">📝 My To-Do List</h3>
+                        
+                        <?php if (isset($_SESSION['errors'])): ?>
+                            <div class="alert alert-danger shadow-sm">
+                                <ul class="mb-0">
+                                    <?php foreach ($_SESSION['errors'] as $error): ?>
+                                        <li><?= htmlspecialchars($error) ?></li>
+                                        <?php endforeach; ?>
+                                </ul>
+                            </div>
+                        <?php unset($_SESSION['errors']); ?>
+                        <?php endif; ?>
 
                         <form action="index.php" method="POST" class="mb-4">
                             <div class="input-group">

@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 require_once '../vendor/autoload.php';
 
 use App\Models\Task;
@@ -29,4 +31,4 @@ if (isset($_GET['toggle']) && isset($_GET['status'])) {
 
 $tasks = $controller->index();
 
-include '../views/tasks.php';
+include '../views/TaskView.php';
