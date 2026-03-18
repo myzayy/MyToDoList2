@@ -31,7 +31,7 @@ class Database
             $this->conn = new PDO($dsn, $this->username, $this->password);
             $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION); // say PDO to throw exceptions if they exist
 
-            echo "Connected Successfully!";
+            // echo "Connected Successfully!";
 
         } catch (PDOException $exception) { // PDOException catch only database errors
             echo "Connection Error: " . $exception->getMessage();

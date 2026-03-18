@@ -2,6 +2,7 @@
 
 namespace App\Controllers;
 
+use App\Helpers\TaskValidator;
 use App\Models\Task;
 
 class TaskController
@@ -21,18 +22,34 @@ class TaskController
     }
 
     // add new task
-    public function add($title, $description)
+    public function add($data)
     {
-        if (!empty($title)) {
-            $this->taskModel->create($title, $description);
+        $validator = new TaskValidator();
+        
+        if ($validator->validate($data)) {
+            $this->taskModel->create($data['title'], $data['description'] ?? "");
+            header("Location: index.php"); // redirect back after adding
+            exit();
+        } else {
+
+            header("Location: index.php?error=invalid_data");
+            exit();
         }
 
-        header("Location: index.php"); // redirect back after adding
+        
     }
 
     public function remove($id)
     {
         $this->taskModel->delete($id);
+
+        header("Location: index.php");
+        exit();
+    }
+
+    public function changeStatus($id, $newStatus) 
+    {
+        $this->taskModel->toggleStatus($id, $newStatus);
 
         header("Location: index.php");
         exit();
