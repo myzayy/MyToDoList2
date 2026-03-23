@@ -21,7 +21,7 @@ class Task
     
     public function getAll()
     {
-        $query =  "SELECT * FROM tasks";
+        $query =  "SELECT * FROM tasks ORDER BY is_completed ASC, created_at DESC";
 
         $stmt = $this->db->prepare($query); // make template from query
         $stmt->execute();
