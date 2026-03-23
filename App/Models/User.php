@@ -23,7 +23,7 @@ class User
         return $stmt->execute([
             'username' => $username,
             'email' => $email,
-            'password' =>$username
+            'password' =>$hashedPassword
         ]);
     }
 

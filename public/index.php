@@ -7,6 +7,8 @@ require_once '../vendor/autoload.php';
 use App\Models\Task;
 use Config\Database;
 use App\Controllers\TaskController;
+use App\Models\User;
+use App\Controllers\AuthController;
 
 // C:\xampp\htdocs\MyToDoList2\config\Database.php
 
@@ -16,10 +18,17 @@ $connection = $db->connect();
 $model = new Task($connection);
 $controller = new TaskController($model);
 
+$userModel = new User($connection);
+$authController = new AuthController($userModel);
+
 $action = $_GET['action'] ?? 'home'; // initialize which action wants user
 
 switch ($action) {
     case 'register':
+        if (isset($_POST['do_register'])) {
+            $authController->register($_POST);
+        }
+
         include '../views/auth/register.php';
         break;
     case 'login':
