@@ -62,4 +62,30 @@ class AuthController
             exit();
         }
     }
+
+    public function login($data)
+    {
+        $user = $this->userModel->findByEmail($data['email']);
+
+        if ($user && password_verify($data['password'], $user['password'])) { // password_verify() compare passwords by hash
+            $_SESSION['user_id'] = $user['id'];
+            $_SESSION['username'] = $user['username'];
+            $_SESSION['is_admin'] = $user['is_admin'];
+
+            header("Location: index.php");
+            exit();
+        } else {
+            $_SESSION['errors'] = ["Invalid email or password."];
+            header("Location: index.php?action=login");
+            exit();
+        }
+    }
+
+    public function logout()
+    {
+        session_unset(); // empty variables $_SESSION
+        session_destroy(); // delete session files
+        header("Location: index.php");
+        exit();
+    }
 }

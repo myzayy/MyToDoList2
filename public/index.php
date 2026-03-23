@@ -32,7 +32,13 @@ switch ($action) {
         include '../views/auth/register.php';
         break;
     case 'login':
-        echo '#';
+        if (isset($_POST['do_login'])) {
+            $authController->login($_POST);
+        }
+        include '../views/auth/login.php';
+        break;
+    case 'logout':
+        $authController->logout();
         break;
     case 'home':
     
