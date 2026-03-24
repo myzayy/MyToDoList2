@@ -45,4 +45,14 @@ class User
         $stmt->execute();
         return $stmt->fetchALL(PDO::FETCH_ASSOC);
     }
+
+    // delete user by id
+    public function delete($id)
+    {
+        $query = "DELETE FROM users WHERE id = :id";
+
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute(['id' => $id]);
+    }
+
 }

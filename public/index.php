@@ -15,8 +15,8 @@ use App\Controllers\AuthController;
 $db = new Database('localhost', 'root', '', 'todolist');
 $connection = $db->connect();
 
-$model = new Task($connection);
-$controller = new TaskController($model);
+$taskModel = new Task($connection);
+$controller = new TaskController($taskModel);
 
 $userModel = new User($connection);
 $authController = new AuthController($userModel);
@@ -43,13 +43,31 @@ switch ($action) {
             header("Location: index.php");
             exit();
         }
+
+        if (isset($_GET['delete_user'])) {
+            $userIdToDelete = $_GET['delete_user'];
+
+            if ($userIdToDelete == $_SESSION['user_id']) {
+                $_SESSION['errors'] = ["You can't delete administrator!"];
+            } else {
+
+                $taskModel->deleteByUserId($userIdToDelete);
+
+                $userModel->delete($userIdToDelete);
+                $_SESSION['success'] = "User have been deleted.";
+
+            }
+            header("Location: index.php?action=admin");
+            exit();
+        }
+
         $allUsers = $userModel->getAllUsers();
 
         include '../views/layout/header.php';
         include '../views/admin/users.php';
         include '../views/layout/footer.php';
         break;
-        
+
     case 'logout':
         $authController->logout();
         break;

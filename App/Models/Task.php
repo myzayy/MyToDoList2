@@ -65,4 +65,14 @@ class Task
 
         return $stmt->execute();
     }
+    
+    // delete tasks from user
+    public function deleteByUserId($userId)
+    {
+        $query = "DELETE FROM tasks WHERE user_id = :user_id";
+
+        $stmt = $this->db->prepare($query);
+        
+        return $stmt->execute(['user_id' => $userId]);
+    }
 }
