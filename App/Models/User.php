@@ -36,4 +36,13 @@ class User
 
         return $stmt->fetch(PDO::FETCH_ASSOC);  
     }
+
+    public function getAllUsers()
+    {
+        $query = "SELECT id, username, email, is_admin, created_at FROM users ORDER BY id DESC";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute();
+        return $stmt->fetchALL(PDO::FETCH_ASSOC);
+    }
 }

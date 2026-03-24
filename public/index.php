@@ -37,6 +37,19 @@ switch ($action) {
         }
         include '../views/auth/login.php';
         break;
+    case 'admin':
+        if (!isset($_SESSION['user_id']) || !$_SESSION['is_admin']) {
+            $_SESSION['errors'] = ["Access denied! You're not administrator."];
+            header("Location: index.php");
+            exit();
+        }
+        $allUsers = $userModel->getAllUsers();
+
+        include '../views/layout/header.php';
+        include '../views/admin/users.php';
+        include '../views/layout/footer.php';
+        break;
+        
     case 'logout':
         $authController->logout();
         break;
