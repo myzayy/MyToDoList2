@@ -17,17 +17,28 @@ class TaskController
     // print main page
     public function index()
     {
-        $tasks = $this->taskModel->getAll();
+        $userId = $_SESSION['user_id'] ?? 0;
+
+        $tasks = $this->taskModel->getAll($userId);
         return $tasks;
     }
 
     // add new task
     public function add($data)
     {
+        $userId = $_SESSION['user_id'] ?? null; 
+        
+        // php level user validation
+        if (!$userId) {
+            $_SESSION['errors'] = ["Please log in first."];
+            header("Location: index.php?action=login");
+            exit();
+        }
+
         $validator = new TaskValidator();
         
         if ($validator->validate($data)) {
-            $this->taskModel->create($data['title'], $data['description'] ?? "");
+            $this->taskModel->create($data['title'], $data['description'] ?? "", $userId);
             header("Location: index.php"); // redirect back after adding
             exit();
         } else {

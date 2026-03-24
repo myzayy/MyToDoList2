@@ -19,27 +19,28 @@ class Task
         $this->db = $db;
     }
     
-    public function getAll()
+    public function getAll($userId)
     {
-        $query =  "SELECT * FROM tasks ORDER BY is_completed ASC, created_at DESC";
+        $query =  "SELECT * FROM tasks WHERE user_id = :user_id ORDER BY is_completed ASC, created_at DESC";
 
         $stmt = $this->db->prepare($query); // make template from query
-        $stmt->execute();
+        $stmt->execute(['user_id' => $userId]);
 
         return $stmt->fetchALL(PDO::FETCH_ASSOC); // FETCH_ASSOC takes only column names like keys
 
     }
 
-    public function create($title, $description = "")
+    public function create($title, $description = "", $userId)
     {
-        $query = "INSERT INTO tasks (title, description) VALUES (:title, :description)";
+        $query = "INSERT INTO tasks (title, description, user_id) VALUES (:title, :description, :user_id)";
         
         $stmt = $this->db->prepare($query);
 
-        $stmt->bindParam(':title', $title); // give data
-        $stmt->bindParam(':description', $description);
-
-        return $stmt->execute(); // return true or false
+        return $stmt->execute([
+            'title' => $title,
+            'description' => $description,
+            'user_id' => $userId
+        ]); // return true or false
     }
 
     public function delete($id)

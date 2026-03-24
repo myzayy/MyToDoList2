@@ -1,15 +1,14 @@
+                    <?php if (isset($_SESSION['user_id'])): ?>
                         <h3 class="card-title text-center mb-4">📝 My To-Do List</h3>    
-                        <?php if (isset($_SESSION['errors'])): ?>
-                            <div class="alert alert-danger shadow-sm">
-                                <ul class="mb-0">
-                                    <?php foreach ($_SESSION['errors'] as $error): ?>
-                                        <li><?= htmlspecialchars($error) ?></li>
-                                        <?php endforeach; ?>
-                                </ul>
-                            </div>
-                        <?php unset($_SESSION['errors']); ?>
-                        <?php endif; ?>
-
+                            <?php if (isset($_SESSION['errors'])): ?>
+                                <div class="alert alert-danger shadow-sm">
+                                    <ul class="mb-0">
+                                        <?php foreach ($_SESSION['errors'] as $error): ?>
+                                            <li><?= htmlspecialchars($error) ?></li>
+                                            <?php endforeach; ?>
+                                    </ul>
+                                </div>
+                            <?php endif; ?>
                         <form action="index.php" method="POST" class="mb-4">
                             <div class="input-group">
                                 <input type="text" name="title" class="form-control" placeholder="What have you planned?" required>
@@ -53,4 +52,17 @@
                                 <?php endforeach; ?>
                             <?php endif; ?>
                         </ul>
-                    
+                    <?php else: ?>
+
+                        <div class="text-center py-5">
+                            <h2>Welcome to TaskMaster! 🚀</h2>
+                            <p class="text-muted">To start planing your day, please, Log in or Register.</p>
+                            <div class="mt-4">
+                                <a href="?action=login" class="btn btn-primary btn-lg me-2">Log in</a>
+                                <a href="?action=register" class="btn btn-outline-primary btn-lg">Create account</a>
+                            </div>
+                        </div>
+                    <?php unset($_SESSION['errors']); ?>
+                    <?php endif; ?>
+
+                        
