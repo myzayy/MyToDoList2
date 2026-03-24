@@ -74,7 +74,22 @@ switch ($action) {
     case 'home':
     
     default:
-        // $model->create('Learn OOP', "Learn PDO");
+
+        $userId = $_SESSION['user_id'] ?? 0;
+        $editTask = null;
+        
+        // if pressed edit
+        if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) {
+            $editTask = $taskModel->getById($_GET['id'], $userId);
+        }
+
+        // pressed save in edit form
+        if (isset($_POST['update_task'])) {
+            $taskModel->update($_POST['task_id'], $_POST['title'], $userId);
+            header("Location: index.php");
+            exit();
+        }
+
         if (isset($_POST['add_task'])) {
             $controller->add($_POST);
         }
@@ -83,6 +98,7 @@ switch ($action) {
             $controller->remove($_GET['delete']);
         }
 
+        // button set as completed or not
         if (isset($_GET['toggle']) && isset($_GET['status'])) {
             $controller->changeStatus($_GET['toggle'], $_GET['status']);
         }

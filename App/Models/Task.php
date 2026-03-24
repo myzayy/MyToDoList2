@@ -30,6 +30,18 @@ class Task
 
     }
 
+    public function getById($id, $userId)
+    {
+        $query = "SELECT * FROM tasks WHERE id = :id AND user_id = :user_id LIMIT 1";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute([
+            'id' => $id,
+            'user_id' =>$userId
+        ]);
+        return $stmt->fetch(PDO::FETCH_ASSOC);
+    }
+
     public function create($title, $description = "", $userId)
     {
         $query = "INSERT INTO tasks (title, description, user_id) VALUES (:title, :description, :user_id)";
@@ -75,4 +87,19 @@ class Task
         
         return $stmt->execute(['user_id' => $userId]);
     }
+
+    // update task
+    public function update($id, $title, $userId)
+    {
+        $query = "UPDATE tasks SET title = :title WHERE id = :id AND user_id = :user_id";
+
+        $stmt = $this->db->prepare($query);
+        return $stmt->execute([
+            'title' => $title,
+            'id' => $id,
+            'user_id' => $userId
+        ]);
+    }
+
+
 }
