@@ -23,13 +23,32 @@
                                         </ul>
                                     </div>
                                 <?php endif; ?>
-
+                                <!-- statistic -->
                                 <p class="text-center text-muted">
                                     Total tasks: <strong><?= $stats['total'] ?></strong> | 
                                     Completed: <span class="text-success"><strong><?= $stats['completed'] ?? 0 ?></strong></span> | 
                                     Remain: <span class="text-warning"><strong><?= $stats['total'] - ($stats['completed'] ?? 0) ?></strong></span>
                                 </p>
-
+                                
+                                <!-- sort buttons -->
+                                <div class="d-flex justify-content-center mb-4">
+                                    <div class="btn-group btn-group-sm" role="group">
+                                        <a href="?filter=all" 
+                                        class="btn <?= ($filter === 'all') ? 'btn-primary' : 'btn-outline-primary' ?>">
+                                        All
+                                        </a>
+                                        <a href="?filter=active" 
+                                        class="btn <?= ($filter === 'active') ? 'btn-primary' : 'btn-outline-primary' ?>">
+                                        Active
+                                        </a>
+                                        <a href="?filter=completed" 
+                                        class="btn <?= ($filter === 'completed') ? 'btn-primary' : 'btn-outline-primary' ?>">
+                                        Completed
+                                        </a>
+                                    </div>
+                                </div>
+                                
+                                <!-- tasks actions buttons -->
                                 <form action="index.php" method="POST" class="mb-4">
                                     <div class="input-group">
                                         <input type="text" name="title" class="form-control" placeholder="What have you planned?" required>

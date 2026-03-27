@@ -78,6 +78,8 @@ switch ($action) {
         $userId = $_SESSION['user_id'] ?? 0;
         $editTask = null;
         $stats = $taskModel->getStatus($userId);
+        $filter = $_GET['filter'] ?? 'all';
+        // $tasks = $taskModel->getAll($userId, $filter);
         
         // if pressed edit
         if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) {
@@ -104,7 +106,7 @@ switch ($action) {
             $controller->changeStatus($_GET['toggle'], $_GET['status']);
         }
 
-        $tasks = $controller->index();
+        $tasks = $controller->index($userId, $filter);
         include '../views/layout/header.php';
         include '../views/TaskView.php';
         include '../views/layout/footer.php';

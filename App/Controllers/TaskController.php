@@ -15,11 +15,11 @@ class TaskController
     }
 
     // print main page
-    public function index()
+    public function index($userId, $filter)
     {
         $userId = $_SESSION['user_id'] ?? 0;
 
-        $tasks = $this->taskModel->getAll($userId);
+        $tasks = $this->taskModel->getAll($userId, $filter);
         return $tasks;
     }
 

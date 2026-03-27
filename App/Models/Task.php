@@ -19,11 +19,17 @@ class Task
         $this->db = $db;
     }
     
-    public function getAll($userId)
+    public function getAll($userId, $filter = 'all')
     {
-        $query =  "SELECT * FROM tasks WHERE user_id = :user_id ORDER BY is_completed ASC, created_at DESC";
+        $query =  "SELECT * FROM tasks WHERE user_id = :user_id";
 
+        if ($filter === 'active') {
+            $query .= " AND is_completed = 0";
+        } elseif ($filter === 'completed') {
+            $query .= " AND is_completed = 1";
+        }
 
+        $query .= " ORDER BY is_completed ASC, created_at DESC";
 
         $stmt = $this->db->prepare($query); // make template from query
         $stmt->execute(['user_id' => $userId]);
