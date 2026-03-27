@@ -77,6 +77,7 @@ switch ($action) {
 
         $userId = $_SESSION['user_id'] ?? 0;
         $editTask = null;
+        $stats = $taskModel->getStatus($userId);
         
         // if pressed edit
         if (isset($_GET['action']) && $_GET['action'] === 'edit' && isset($_GET['id'])) {

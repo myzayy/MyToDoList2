@@ -23,6 +23,8 @@ class Task
     {
         $query =  "SELECT * FROM tasks WHERE user_id = :user_id ORDER BY is_completed ASC, created_at DESC";
 
+
+
         $stmt = $this->db->prepare($query); // make template from query
         $stmt->execute(['user_id' => $userId]);
 
@@ -99,6 +101,17 @@ class Task
             'id' => $id,
             'user_id' => $userId
         ]);
+    }
+
+    // task status completed
+    public function getStatus($userId)
+    {
+        $query = "SELECT COUNT(*) as total, SUM(is_completed) as completed FROM tasks WHERE user_id = :user_id";
+
+        $stmt = $this->db->prepare($query);
+        $stmt->execute(['user_id' => $userId]);
+
+        return $stmt->fetch(PDO::FETCH_ASSOC);
     }
 
 

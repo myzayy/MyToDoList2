@@ -1,5 +1,5 @@
                     <?php if (isset($_SESSION['user_id'])): ?>
-                        
+                        <!-- if pressed edit -->
                         <?php if ($editTask): ?>
                             <h3 class="card-title text-center mb-4 text-primary">✏️ Edit Task</h3>
                             <form action="index.php" method="POST" class="mb-4">
@@ -11,7 +11,7 @@
                                     <a href="index.php" class="btn btn-outline-secondary">Cancel</a>
                                 </div>
                             </form>
-
+                        <!-- defaul site view -->
                         <?php else: ?>
                             <h3 class="card-title text-center mb-4">📝 My To-Do List</h3>    
                                 <?php if (isset($_SESSION['errors'])): ?>
@@ -23,6 +23,12 @@
                                         </ul>
                                     </div>
                                 <?php endif; ?>
+
+                                <p class="text-center text-muted">
+                                    Total tasks: <strong><?= $stats['total'] ?></strong> | 
+                                    Completed: <span class="text-success"><strong><?= $stats['completed'] ?? 0 ?></strong></span> | 
+                                    Remain: <span class="text-warning"><strong><?= $stats['total'] - ($stats['completed'] ?? 0) ?></strong></span>
+                                </p>
 
                                 <form action="index.php" method="POST" class="mb-4">
                                     <div class="input-group">
@@ -71,6 +77,7 @@
                                     <?php endif; ?>
                                 </ul>
                             <?php endif; ?> <?php unset($_SESSION['errors']); ?>
+                            <!-- guest view -->
                         <?php else: ?>
 
                             <div class="text-center py-5">
