@@ -5,8 +5,11 @@
                             <form action="index.php" method="POST" class="mb-4">
                                 <input type="hidden" name="task_id" value="<?= $editTask['id'] ?>">
                                 <div class="input-group">
+                                    <!-- htmlspecialchars needed for safety (text in field cannot not be accepted as code) -->
+                                     <!-- required neeeded in order to avoid saving empty rows in db-->
+                                      <!-- autofocus will point user arrow in field -->
                                     <input type="text" name="title" class="form-control border-primary" 
-                                        value="<?= htmlspecialchars($editTask['title']) ?>" required autofocus>
+                                        value="<?= htmlspecialchars($editTask['title']) ?>" required autofocus> 
                                     <button class="btn btn-primary" type="submit" name="update_task">Save</button>
                                     <a href="index.php" class="btn btn-outline-secondary">Cancel</a>
                                 </div>
@@ -51,7 +54,7 @@
                                 <!-- tasks actions buttons -->
                                 <form action="index.php" method="POST" class="mb-4">
                                     <div class="input-group">
-                                        <input type="text" name="title" class="form-control" placeholder="What have you planned?" required>
+                                        <input type="text" name="title" class="form-control" placeholder="What have you planned?" required autofocus>
                                         <button class="btn btn-primary" type="submit" name="add_task">Add</button>
                                     </div>
                                 </form>

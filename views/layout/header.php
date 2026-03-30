@@ -8,11 +8,21 @@
     <style>
         .completed { text-decoration: line-through; color: gray; }
         body { background-color: #f8f9fa; }
+        html, body {
+            height: 100%;
+        }
+        body {
+            display: flex;
+            flex-direction: column;
+        }
+        footer {
+            margin-top: auto;
+        }
     </style>
 </head>
-<body>
+<body class="d-flex flex-column min-vh-100">
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark shadow">
-        <div class="container">
+        <div class="container my-2">
             <a class="navbar-brand" href="index.php">🚀 TaskMaster</a>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -41,7 +51,7 @@
             </div>
         </div>
     </nav>
-    <div class="container mt-5">
+    <div class="container mt-5 mb-5 flex-grow-1">
         <div class="row justify-content-center">
             <div class="col-md-6">
                 <div class="card shadow-sm">
