@@ -63,9 +63,7 @@ class Task
 
         $stmt = $this->db->prepare($query);
 
-        $stmt->bindParam(":id", $id);
-
-        return $stmt->execute();
+        return $stmt->execute(['id' => $id]);
     }
 
     public function toggleStatus($id, $newStatus)
@@ -74,10 +72,10 @@ class Task
         
         $stmt = $this->db->prepare($query);
 
-        $stmt->bindParam(":status", $newStatus);
-        $stmt->bindParam(":id", $id);
-
-        return $stmt->execute();
+        return $stmt->execute([
+            'status' => $newStatus,
+            'id' => $id
+        ]);
     }
     
     // delete tasks from user
