@@ -8,12 +8,6 @@ class Task
 {
     private $db;
 
-    private int $id;
-    private string $title;
-    private string $description;
-    private bool $is_completed;
-    private string $created_at;
-
     public function __construct(PDO $db)
     {
         $this->db = $db;
@@ -34,7 +28,7 @@ class Task
         $stmt = $this->db->prepare($query); // make template from query
         $stmt->execute(['user_id' => $userId]);
 
-        return $stmt->fetchALL(PDO::FETCH_ASSOC); // FETCH_ASSOC takes only column names like keys
+        return $stmt->fetchALL(PDO::FETCH_ASSOC); // FETCH_ASSOC turns result as array
 
     }
 
