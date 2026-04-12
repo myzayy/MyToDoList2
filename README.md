@@ -41,14 +41,14 @@ Class Task includes methods to implement CRUD operations (Create, Read, Update, 
 
 
 
-* ```phpgetAll($userId, $filter)```: Gets list of tasks, using filtration (All, Active, Completed) and sort.
-* ```phpgetById($id, $userId)```: Uses ```phpfetch(PDO::FETCH\_ASSOC)``` to get only one specific query.
-* ```phpcreate($title, $description, $userId)```: Add new task in DB.
-* ```phpdelete($id)```: Deletes task by his ID.
-* ```phptoggleStatus($userId)```: Change is\_completed status.
-* ```phpgetStatus($userId)```: Uses aggregate functions SQL (COUNT, SUM), to get  stats for upper panel.
-* ```phpdeleteByUserId($userId)```: Method for Admin - gives ability to delete task from specific user.
-* ```phpupdate($id, $title, $userId)```: Gives ability to edit tasks.
+* ```getAll($userId, $filter)```: Gets list of tasks, using filtration (All, Active, Completed) and sort.
+* ```getById($id, $userId)```: Uses ```fetch(PDO::FETCH\_ASSOC)``` to get only one specific query.
+* ```create($title, $description, $userId)```: Add new task in DB.
+* ```delete($id)```: Deletes task by his ID.
+* ```toggleStatus($userId)```: Change is\_completed status.
+* ```getStatus($userId)```: Uses aggregate functions SQL (COUNT, SUM), to get  stats for upper panel.
+* ```deleteByUserId($userId)```: Method for Admin - gives ability to delete task from specific user.
+* ```update($id, $title, $userId)```: Gives ability to edit tasks.
 
 
 
@@ -64,14 +64,14 @@ Before being saved to the database, the data is validated on the server.
 
 
 
-Method ```phpvalidate(array $data)```: Validate that the task name can't be empty, and length of task name (max 128 characters).
+Method ```validate(array $data)```: Validate that the task name can't be empty, and length of task name (max 128 characters).
 
 
 
 **Error handling:** 
 
-* Method ```phpgetErrors()``` - returns array of errors. 
-* Errors are stored in an array and passed to the view via the ```php$_SESSION['errors']``` session variable, after which they are removed using unset.
+* Method ```getErrors()``` - returns array of errors. 
+* Errors are stored in an array and passed to the view via the ```$_SESSION['errors']``` session variable, after which they are removed using unset.
 
 
 
@@ -83,8 +83,8 @@ The index.php file implements a mechanism that determines what to display to the
 
 
 
-* The ```php$\_GET\['action']``` parameter specifies the page (login, register, edit, admin).
-* If the parameter is missing, the ```php?? 'home'``` operator sets the default value.
+* The ```$_GET['action']``` parameter specifies the page (login, register, edit, admin).
+* If the parameter is missing, the ```?? 'home'``` operator sets the default value.
 * For actions that modify data (e.g., **add\_task**), **$\_POST** parameters are used.
 
 
@@ -101,9 +101,9 @@ To protect users' personal data, an authorization system has been implemented:
 
 
 
-* **Session start:** Function ```phpsession_start()``` calls in main file **index.php**.
-* **Identification:** After succesfull authorization, in array ```php$_SESSION['user_id']``` writes unique ID of user. This allows server to "recognize" a user when navigating between pages using the **PHPSESSID** (unique session ID that creates automatically by calling ```phpsession_start()``` function) cookie.
-* **Access control:** Most methods in controllers begin by checking if ```php$_SESSION['user_id']``` exists. If the user is not logged in, the system redirects them to the page that offers: ***login*** or ***register*** using ```phpheader("Location: ...")```.
+* **Session start:** Function ```session_start()``` calls in main file **index.php**.
+* **Identification:** After succesfull authorization, in array ```$_SESSION['user_id']``` writes unique ID of user. This allows server to "recognize" a user when navigating between pages using the **PHPSESSID** (unique session ID that creates automatically by calling ```session_start()``` function) cookie.
+* **Access control:** Most methods in controllers begin by checking if ```$_SESSION['user_id']``` exists. If the user is not logged in, the system redirects them to the page that offers: ***login*** or ***register*** using ```header("Location: ...")```.
 
 
 
@@ -114,7 +114,7 @@ To protect users' personal data, an authorization system has been implemented:
 Project secured from two basic types of attack:
 
 * **SQL-injections:** By using prepared statements in **PDO** (prepare and execute), input data is never inserted directly into the SQL code. The database receives the data separately from the command.
-* **XSS (Cross-Side Scripting):** When displaying any text that a user might have entered (task names, usernames), the ```phphtmlspecialchars()``` function is used. It converts the **<** and **>** characters into safe text, preventing the browser from executing malicious scripts.
+* **XSS (Cross-Side Scripting):** When displaying any text that a user might have entered (task names, usernames), the ```htmlspecialchars()``` function is used. It converts the **<** and **>** characters into safe text, preventing the browser from executing malicious scripts.
 
 
 
@@ -124,8 +124,8 @@ Project secured from two basic types of attack:
 
 User passwords are never saving in the open view.
 
-* To write are using function ```phppassword_hash()```, which creates complex irreversible code.
-* The ```phppassword_verify()``` function is used for login verification. This helps make sure that even if the database is compromised? hackers won't be able to find out the actual passwords.
+* To write are using function ```password_hash()```, which creates complex irreversible code.
+* The ```password_verify()``` function is used for login verification. This helps make sure that even if the database is compromised? hackers won't be able to find out the actual passwords.
 
 
 
@@ -138,7 +138,7 @@ User passwords are never saving in the open view.
 
 
 * **Front Controller:** The entire project is controlled by a single index.php file. This allows for centralized configuration of database connections and management of access permissions.
-* **PRG (Post-Redirect-Get):** After each succsessful operation (addition, deletion), the server redirects back to idex.php using ```phpheader()```. This prevents thew form from being resubmitted when the page is refreshed (by pressing F5).
+* **PRG (Post-Redirect-Get):** After each succsessful operation (addition, deletion), the server redirects back to idex.php using ```header()```. This prevents thew form from being resubmitted when the page is refreshed (by pressing F5).
 
 ### 10\. Code Standarts
 
