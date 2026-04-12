@@ -1,5 +1,7 @@
 <?php
 
+// Front Controller -- single point of entry, initializes the system and routes requests
+
 session_start();
 
 require_once '../vendor/autoload.php';
@@ -20,6 +22,8 @@ $controller = new TaskController($taskModel);
 
 $userModel = new User($connection);
 $authController = new AuthController($userModel);
+
+// Routing
 
 $action = $_GET['action'] ?? 'home'; // initialize which action wants user
 

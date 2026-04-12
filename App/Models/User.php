@@ -1,5 +1,7 @@
 <?php
 
+// work with data and SQL queries to DB
+
 namespace App\Models;
 
 use PDO;

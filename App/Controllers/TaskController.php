@@ -1,5 +1,7 @@
 <?php
 
+// Process input data and control program's logic
+
 namespace App\Controllers;
 
 use App\Helpers\TaskValidator;
