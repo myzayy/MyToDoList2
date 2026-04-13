@@ -1,4 +1,14 @@
                     <?php if (isset($_SESSION['user_id'])): ?>
+                        <?php if (isset($_SESSION['errors'])): ?>
+                                    <div class="alert alert-danger shadow-sm">
+                                        <ul class="mb-0">
+                                            <?php foreach ($_SESSION['errors'] as $error): ?>
+                                                <li><?= htmlspecialchars($error) ?></li>
+                                                 <?php endforeach; ?>
+                                        </ul>
+                                    </div>
+                                    <?php unset($_SESSION['errors']); ?>
+                                <?php endif; ?>
                         <!-- if pressed edit -->
                         <?php if ($editTask): ?>
                             <h3 class="card-title text-center mb-4 text-primary">✏️ Edit Task</h3>
@@ -17,15 +27,7 @@
                         <!-- defaul site view -->
                         <?php else: ?>
                             <h3 class="card-title text-center mb-4">📝 My To-Do List</h3>    
-                                <?php if (isset($_SESSION['errors'])): ?>
-                                    <div class="alert alert-danger shadow-sm">
-                                        <ul class="mb-0">
-                                            <?php foreach ($_SESSION['errors'] as $error): ?>
-                                                <li><?= htmlspecialchars($error) ?></li>
-                                                <?php endforeach; ?>
-                                        </ul>
-                                    </div>
-                                <?php endif; ?>
+                                
                                 <!-- statistic -->
                                 <p class="text-center text-muted">
                                     Total tasks: <strong><?= $stats['total'] ?></strong> | 
@@ -98,7 +100,7 @@
                                         <?php endforeach; ?>
                                     <?php endif; ?>
                                 </ul>
-                            <?php endif; ?> <?php unset($_SESSION['errors']); ?>
+                            <?php endif; ?>
                             <!-- guest view -->
                         <?php else: ?>
 

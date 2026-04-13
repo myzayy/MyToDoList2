@@ -6,7 +6,7 @@ class TaskValidator
 {
     private $errors = [];
 
-    public function validate(array $data)
+    public function validate($data)
     {
         if (!isset($data['title']) || empty(trim($data['title']))) {
             $this->errors[] = "Name of task can't be empty.";

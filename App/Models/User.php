@@ -35,7 +35,7 @@ class User
 
         $stmt = $this->db->prepare($query);
         $stmt->execute(['email' => $email]);
-
+  
         return $stmt->fetch(PDO::FETCH_ASSOC);  
     }
 

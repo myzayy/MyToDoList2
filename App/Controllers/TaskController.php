@@ -62,6 +62,23 @@ class TaskController
         exit();
     }
 
+    public function update($id, $title)
+    {
+        $userId = $_SESSION['user_id'];
+
+        $validator = new TaskValidator();
+        if ($validator->validate(['title' => $title])) {
+            $this->taskModel->update($id, $title, $userId);
+            header("Location: index.php");
+            exit();
+            
+        } else {
+            $_SESSION['errors'] = $validator->getErrors();
+            header("Location: index.php?action=edit&id=" . $id);
+            exit();
+        }
+    }
+
     public function changeStatus($id, $newStatus) 
     {
         $this->taskModel->toggleStatus($id, $newStatus);

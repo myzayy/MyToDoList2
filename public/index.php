@@ -92,9 +92,7 @@ switch ($action) {
 
         // pressed save in edit form
         if (isset($_POST['update_task'])) {
-            $taskModel->update($_POST['task_id'], $_POST['title'], $userId);
-            header("Location: index.php");
-            exit();
+            $controller->update($_POST['task_id'], $_POST['title']);
         }
 
         if (isset($_POST['add_task'])) {
