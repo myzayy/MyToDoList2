@@ -93,6 +93,7 @@ switch ($action) {
         // pressed save in edit form
         if (isset($_POST['update_task'])) {
             $controller->update($_POST['task_id'], $_POST['title']);
+            
         }
 
         if (isset($_POST['add_task'])) {

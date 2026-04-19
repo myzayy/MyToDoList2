@@ -34,7 +34,7 @@ class Database
             // echo "Connected Successfully!";
 
         } catch (PDOException $exception) { // PDOException catch only database errors
-            echo "Connection Error: " . $exception->getMessage();
+            die("Connection Error: " . $exception->getMessage());
         }
 
         return $this->conn;

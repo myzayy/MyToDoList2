@@ -1,4 +1,10 @@
                     <?php if (isset($_SESSION['user_id'])): ?>
+                        <?php if (isset($_SESSION['success'])): ?>
+                            <div class="alert alert-success shadow-sm">
+                                <?= htmlspecialchars($_SESSION['success']) ?>
+                            </div>
+                            <?php unset($_SESSION['success']); ?> 
+                        <?php endif; ?>
                         <?php if (isset($_SESSION['errors'])): ?>
                                     <div class="alert alert-danger shadow-sm">
                                         <ul class="mb-0">

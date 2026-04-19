@@ -6,6 +6,12 @@ include __DIR__ . '/../layout/header.php';
 
 <div class="card shadow-sm">
     <div class="card-body">
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success shadow-sm">
+                <?= htmlspecialchars($_SESSION['success']) ?>
+            </div>
+            <?php unset($_SESSION['success']); ?> 
+        <?php endif; ?>
         <?php if (isset($_SESSION['errors'])): ?>
             <div class="alert alert-danger">
                 <ul class="mb-0">

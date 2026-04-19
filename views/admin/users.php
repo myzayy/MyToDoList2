@@ -1,3 +1,19 @@
+<?php if (isset($_SESSION['success'])): ?>
+    <div class="alert alert-success shadow-sm">
+        <?= htmlspecialchars($_SESSION['success']) ?>
+    </div>
+    <?php unset($_SESSION['success']); ?> 
+<?php endif; ?>
+<?php if (isset($_SESSION['errors'])): ?>
+        <div class="alert alert-danger">
+            <ul class="mb-0">
+                <?php foreach ($_SESSION['errors'] as $error): ?>
+                    <li><?= htmlspecialchars($error) ?></li>
+                <?php endforeach; ?>
+            </ul>
+        </div>
+    <?php unset($_SESSION['errors']); ?>
+<?php endif; ?>
 <h3 class="mb-4 text-center">Manage users (admin panel)</h3>
 
 <table class="table table-hover table-bordered shadow-sm bg-white">

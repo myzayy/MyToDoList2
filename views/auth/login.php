@@ -3,6 +3,12 @@
 <div class="card shadow-sm mt-5">
     <div class="card-body">
         <h3 class="card-title text-center mb-4">Log in</h3>
+        <?php if (isset($_SESSION['success'])): ?>
+            <div class="alert alert-success shadow-sm">
+                <?= htmlspecialchars($_SESSION['success']) ?>
+            </div>
+            <?php unset($_SESSION['success']); ?> 
+        <?php endif; ?>
 
         <?php if (isset($_SESSION['errors'])): ?>
             <div class="alert alert-danger">

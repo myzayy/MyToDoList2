@@ -41,6 +41,7 @@ class TaskController
         
         if ($validator->validate($data)) {
             $this->taskModel->create($data['title'], $data['description'] ?? "", $userId);
+            $_SESSION['success'] = "Added new task.";
             header("Location: index.php"); // redirect back after adding
             exit();
         } else {
@@ -57,6 +58,8 @@ class TaskController
     public function remove($id)
     {
         $this->taskModel->delete($id);
+        
+        $_SESSION['success'] = "Task have been deleted.";
 
         header("Location: index.php");
         exit();
@@ -69,6 +72,7 @@ class TaskController
         $validator = new TaskValidator();
         if ($validator->validate(['title' => $title])) {
             $this->taskModel->update($id, $title, $userId);
+            $_SESSION['success'] = "Task changes have been saved.";
             header("Location: index.php");
             exit();
             
