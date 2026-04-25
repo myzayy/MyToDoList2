@@ -14,7 +14,11 @@ use App\Controllers\AuthController;
 
 // C:\xampp\htdocs\MyToDoList2\config\Database.php
 
-$db = new Database('localhost', 'root', '', 'todolist');
+
+$dotenv = Dotenv\Dotenv::createImmutable(__DIR__ . '/../');
+$dotenv->load();
+
+$db = new Database($_ENV['DB_HOST'], $_ENV['DB_USER'], $_ENV['DB_PASS'], $_ENV['DB_NAME']);
 $connection = $db->connect();
 
 $taskModel = new Task($connection);
