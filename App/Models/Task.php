@@ -62,13 +62,16 @@ class Task
     }
 
     // Delete task by ID
-    public function delete($id)
+    public function delete($id, $userId)
     {
-        $query = "DELETE FROM tasks WHERE id = :id";
+        $query = "DELETE FROM tasks WHERE id = :id AND user_id = :user_id";
 
         $stmt = $this->db->prepare($query);
 
-        return $stmt->execute(['id' => $id]);
+        return $stmt->execute([
+            'id' => $id,
+            'user_id' => $userId
+            ]);
     }
 
     // Change is_completed status

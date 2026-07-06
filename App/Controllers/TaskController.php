@@ -57,10 +57,15 @@ class TaskController
 
     public function remove($id)
     {
-        $this->taskModel->delete($id);
+        $userId = $_SESSION['user_id'] ?? null;
         
-        $_SESSION['success'] = "Task have been deleted.";
-
+        if ($userId) {
+            $this->taskModel->delete($id, $userId);
+            $_SESSION['success'] = "Task have been deleted.";
+        } else {
+            $_SESSION['error'] = "You must be logged in!";
+        }
+        
         header("Location: index.php");
         exit();
     }
